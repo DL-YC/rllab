@@ -109,7 +109,7 @@ class BatchPolopt(RLAlgorithm):
                 import joblib
                 self.policy = joblib.load(self.load_policy)['policy']
             self.init_opt()
-            # initialize uninitialized vars (I know, it's ugly)
+            # initialize uninitialized vars
             uninit_vars = []
             for var in tf.all_variables():
                 try:
@@ -117,7 +117,6 @@ class BatchPolopt(RLAlgorithm):
                 except tf.errors.FailedPreconditionError:
                     uninit_vars.append(var)
             sess.run(tf.initialize_variables(uninit_vars))
-            #sess.run(tf.initialize_all_variables())
             self.start_worker()
             start_time = time.time()
             for itr in range(self.start_itr, self.n_itr):

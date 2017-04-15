@@ -3,7 +3,9 @@ from rllab.misc import tensor_utils
 import time
 
 
-def rollout(env, agent, max_path_length=np.inf, animated=False, speedup=1, save_video=True, video_filename='sim_out.mp4'):
+def rollout(env, agent, max_path_length=np.inf, animated=False, speedup=1,
+            save_video=True, video_filename='sim_out.mp4',
+            always_return_paths=False):
     observations = []
     actions = []
     rewards = []
@@ -45,7 +47,8 @@ def rollout(env, agent, max_path_length=np.inf, animated=False, speedup=1, save_
                 clip.write_gif(video_filename, fps=20*speedup)
             else:
                 clip.write_videofile(video_filename, fps=20*speedup)
-        #return
+        if not always_return_paths:
+            return
 
     return dict(
         observations=tensor_utils.stack_tensor_list(observations),

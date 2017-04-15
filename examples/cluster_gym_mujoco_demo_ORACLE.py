@@ -3,8 +3,10 @@ from rllab.envs.normalized_env import normalize
 from sandbox.rocky.tf.envs.base import TfEnv
 from sandbox.rocky.tf.policies.gaussian_mlp_policy import GaussianMLPPolicy
 from sandbox.rocky.tf.algos.trpo import TRPO
-from rllab.misc.instrument import run_experiment_lite
-from rllab.envs.gym_env import GymEnv
+from rllab.misc.instrument import stub, run_experiment_lite
+# from rllab.envs.gym_env import GymEnv
+# from rllab.envs.mujoco.swimmer_randgoal_env import SwimmerRandGoalEnv
+from rllab.envs.mujoco.swimmer_randgoal_oracle_env import SwimmerRandGoalOracleEnv
 import sys
 
 from rllab.misc.instrument import VariantGenerator, variant
@@ -21,7 +23,8 @@ class VG(VariantGenerator):
 
 
 def run_task(vv):
-    env = TfEnv(normalize(GymEnv('HalfCheetah-v1', record_video=False, record_log=False)))
+    env = TfEnv(normalize(SwimmerRandGoalOracleEnv()))
+    # env = TfEnv(normalize(GymEnv('HalfCheetah-v1', record_video=False, record_log=False)))
 
     policy = GaussianMLPPolicy(
         env_spec=env.spec,
