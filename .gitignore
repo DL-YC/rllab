@@ -3,6 +3,7 @@ data
 *-checkpoint.ipynb
 .DS_Store
 *.h5
+*.pkl
 *.log
 *.npz
 secrets.py
